@@ -1,0 +1,2 @@
+from gym_avoidance.envs.avoidance_env import AvoidanceEnv
+from gym_avoidance.envs.avoidance_extrahard_env import AvoidanceExtraHardEnv

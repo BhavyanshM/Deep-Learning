@@ -1,0 +1,7 @@
+README.md
+setup.py
+gym_avoidance.egg-info/PKG-INFO
+gym_avoidance.egg-info/SOURCES.txt
+gym_avoidance.egg-info/dependency_links.txt
+gym_avoidance.egg-info/requires.txt
+gym_avoidance.egg-info/top_level.txt
