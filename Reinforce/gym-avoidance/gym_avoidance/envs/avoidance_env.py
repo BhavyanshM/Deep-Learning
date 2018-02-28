@@ -98,7 +98,7 @@ class AvoidanceEnv(gym.Env):
 
         if self.viewer is None:
             from gym.envs.classic_control import rendering
-            # self.viewer = rendering.Viewer(screen_width, screen_height)
+            self.viewer = rendering.Viewer(screen_width, screen_height)
             l,r,t,b = -cartwidth/2, cartwidth/2, cartheight/2, -cartheight/2
             axleoffset =cartheight/4.0
             cart = rendering.FilledPolygon([(l,b), (l,t), (r,t), (r,b)])
