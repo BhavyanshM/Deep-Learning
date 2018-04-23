@@ -5,6 +5,8 @@ from scipy.io import wavfile as wf
 import matplotlib.pyplot as plt
 import numpy as np
 import peakutils.peak
+import subprocess
+
 
 FORMAT = pyaudio.paInt16
 CHANNELS = 2
@@ -37,6 +39,7 @@ waveFile.setframerate(RATE)
 waveFile.writeframes(b''.join(frames))
 waveFile.close()
 
+
 fs, data = wf.read(WAVE_OUTPUT_NAME)
 a = data.T[0] # this is a two channel soundtrack, I get the first track
 b=[(ele/2**8.)*2-1 for ele in a] # this is 8-bit track, b is now normalized on [-1,1)
@@ -45,9 +48,21 @@ d = int(len(c)/2)  # you only need half of the fft list (real signal symmetry)`
 p = abs(c[:(d-1)])
 locs = peakutils.peak.indexes(np.array(p),
     thres=20000/max(p))
-print(np.mean(locs))
-plt.xlim(0, 10000)
-plt.plot(p,'b') 
-plt.show()
+frs = locs/5
+upper = frs[frs>900]
+lower = frs[frs<900]
+print(lower)
+print(upper)
+mean = np.mean(lower)
+up = np.mean(upper)
+print(mean)
+# plt.xlim(0, 10000)
+# plt.plot(p,'b') 
+# plt.show()
 
 
+if (mean > 320) and (mean < 400) and (up<1005) and (up>995):
+	print('Access Granted!')
+	p = subprocess.Popen('notepad treasure.txt')
+else :
+	print('Could Not Authenticate!')
