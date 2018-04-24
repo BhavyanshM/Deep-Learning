@@ -47,22 +47,37 @@ c = fft(b) # calculate fourier transform (complex numbers list)
 d = int(len(c)/2)  # you only need half of the fft list (real signal symmetry)`
 p = abs(c[:(d-1)])
 locs = peakutils.peak.indexes(np.array(p),
-    thres=20000/max(p))
+    thres=50000/max(p))
 frs = locs/5
-upper = frs[frs>900]
-lower = frs[frs<900]
+frs = frs[frs>900]
+upper = frs[frs>1300]
+lower = frs[frs<1100]
+mid = frs[(frs>1100)&(frs<1300)]
 print(lower)
+print(mid)
 print(upper)
-mean = np.mean(lower)
+middle = np.mean(mid)
+down = np.mean(lower)
 up = np.mean(upper)
-print(mean)
 # plt.xlim(0, 10000)
 # plt.plot(p,'b') 
+# plt.axvline(x=down*5, color='k', linestyle='--')
+# plt.axvline(x=middle*5, color='k', linestyle='--')
+# plt.axvline(x=up*5, color='k', linestyle='--')
+# plt.axhline(y=50000, color='y', linestyle='--')
 # plt.show()
 
+print(down)
+print(middle)
+print(up)
 
-if (mean > 320) and (mean < 400) and (up<1005) and (up>995):
-	print('Access Granted!')
-	p = subprocess.Popen('notepad treasure.txt')
+if (down > 995) and (down < 1005) and (middle>1195) and (middle<1205):
+	if (up > 1395) and (up < 1405):
+		print('Access Granted!')
+		# with file('treasure.txt') as f:
+		# 	string = f.read()
+		# 	for c in string:
+		# 		print(c)
+		p = subprocess.Popen('notepad treasure.txt')
 else :
 	print('Could Not Authenticate!')
